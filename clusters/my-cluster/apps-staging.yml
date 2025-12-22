@@ -16,3 +16,4 @@ spec:
     substitute:
       namespace: staging
   wait: true
+  timeout: 5m
