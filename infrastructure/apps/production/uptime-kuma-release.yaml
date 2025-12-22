@@ -1,0 +1,40 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: uptime-kuma
+  namespace: production
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: uptime-kuma
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+      version: "2.20.x"
+  values:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+    extraEnv:
+      - name: UPTIME_KUMA_DB_TYPE
+        value: "postgres"
+      - name: UPTIME_KUMA_DB_CONN
+        valueFrom:
+          secretKeyRef:
+            name: uptime-kuma-postgres-prod-app
+            key: conninfo
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        hosts:
+          - host: kuma.prod.local
+            paths:
+              - path: /
+                pathType: Prefix

@@ -1,0 +1,26 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: uptime-kuma
+  namespace: staging
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: uptime-kuma
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+      version: "2.20.x"
+  values:
+    replicas: 1
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        hosts:
+          - host: kuma.staging.local
+            paths:
+              - path: /
+                pathType: Prefix
