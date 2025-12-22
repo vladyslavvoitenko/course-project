@@ -21,7 +21,10 @@ spec:
       limits:
         cpu: 500m
         memory: 512Mi
-    extraEnv:
+    persistence:
+      data:
+        enabled: false
+    env:
       - name: UPTIME_KUMA_DB_TYPE
         value: "postgres"
       - name: UPTIME_KUMA_DB_CONN

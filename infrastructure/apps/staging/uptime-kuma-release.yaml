@@ -14,13 +14,27 @@ spec:
         namespace: flux-system
       version: "1.4.2"
   values:
-    replicas: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+    persistence:
+      data:
+        enabled: false
+    env:
+      - name: UPTIME_KUMA_DB_TYPE
+        value: "postgres"
+      - name: UPTIME_KUMA_DB_CONN
+        valueFrom:
+          secretKeyRef:
+            name: uptime-kuma-postgres-staging-app
+            key: conninfo
     ingress:
       main:
         enabled: true
         ingressClassName: traefik
         hosts:
           - host: kuma.staging.local
-            paths:
-              - path: /
-                pathType: Prefix
