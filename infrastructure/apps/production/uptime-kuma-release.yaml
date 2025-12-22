@@ -24,15 +24,20 @@ spec:
     persistence:
       data:
         enabled: false
-    deployment:
-      extraEnv:
-        - name: UPTIME_KUMA_DB_TYPE
-          value: "postgres"
-        - name: UPTIME_KUMA_DB_CONN
-          valueFrom:
-            secretKeyRef:
-              name: uptime-kuma-postgres-prod-app
-              key: conninfo
+    env:
+      UPTIME_KUMA_DB_TYPE: "postgres"
+      UPTIME_KUMA_DB_CONN:
+        valueFrom:
+          secretKeyRef:
+            name: uptime-kuma-postgres-prod-app
+            key: conninfo
+#        - name: UPTIME_KUMA_DB_TYPE
+#          value: "postgres"
+#        - name: UPTIME_KUMA_DB_CONN
+#          valueFrom:
+#            secretKeyRef:
+#              name: uptime-kuma-postgres-prod-app
+#              key: conninfo
     ingress:
       main:
         enabled: true
