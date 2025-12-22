@@ -14,6 +14,9 @@ spec:
         namespace: flux-system
       version: "2.24.0"
   values:
+    persistence:
+      enabled: true
+      size: 5Gi
     replicas: 3
     resources:
       requests: { cpu: "100m", memory: "256Mi" }

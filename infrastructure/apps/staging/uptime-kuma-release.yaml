@@ -14,6 +14,8 @@ spec:
         namespace: flux-system
       version: "2.24.0"
   values:
+    persistence:
+      enabled: false
     replicas: 1
     mariadb:
       enabled: false
