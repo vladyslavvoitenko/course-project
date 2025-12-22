@@ -26,11 +26,11 @@ spec:
         enabled: false
     env:
       UPTIME_KUMA_DB_TYPE: "postgres"
-      UPTIME_KUMA_DB_CONN:
-        valueFrom:
-          secretKeyRef:
-            name: uptime-kuma-postgres-app
-            key: uri
+      UPTIME_KUMA_DB_CONN: "postgresql://app:fL1yUml0ozByAIFnrq2cnamqTSksbA6114R4IhXvrmhTvVqz6y6YyAVPtVHztzaO%@uptime-kuma-postgres-rw.production.svc.cluster.local:5432/app"
+#        valueFrom:
+#          secretKeyRef:
+#            name: uptime-kuma-postgres-app
+#            key: uri
 #    env:
 #      UPTIME_KUMA_DB_TYPE: "postgres"
 #      UPTIME_KUMA_DB_CONN:
