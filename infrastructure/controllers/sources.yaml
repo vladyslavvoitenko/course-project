@@ -3,12 +3,11 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: bitnami
-  namespace: flux-system
 spec:
-  interval: 24h
-  url: https://charts.bitnami.com/bitnami
+  type: oci
+  interval: 1h
+  url: oci://registry-1.docker.io/bitnamicharts
 ---
-# Джерело для чарту Uptime Kuma
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
