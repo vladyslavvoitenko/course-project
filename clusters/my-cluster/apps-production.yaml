@@ -16,4 +16,4 @@ spec:
     substitute:
       namespace: production
   wait: true
-  timeout: 5m
+  timeout: 10m

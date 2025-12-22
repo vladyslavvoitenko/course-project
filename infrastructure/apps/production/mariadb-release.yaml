@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mariadb-prod
+  namespace: production
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: mariadb
+      sourceRef: { kind: HelmRepository, name: bitnami, namespace: flux-system }
+      version: "19.x.x"
+  values:
+    architecture: replication
+    auth:
+      database: "uptimekuma_prod"
+      username: "kuma_prod"
+      existingSecret: "mariadb-prod-secret"
+      secretKeys:
+        rootPasswordKey: mariadb-root-password
+        userPasswordKey: mariadb-password

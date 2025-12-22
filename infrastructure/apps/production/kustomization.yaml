@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespave: production
 resources:
+  - mariadb-secret.yaml
+  - mariadb-release.yaml
   - uptime-kuma-release.yaml
-  - postgres-cluster.yaml
-  - uptime-kuma-hpa.yaml
+  - hpa.yaml

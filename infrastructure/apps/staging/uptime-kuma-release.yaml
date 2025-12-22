@@ -4,36 +4,27 @@ metadata:
   name: uptime-kuma
   namespace: staging
 spec:
+  dependsOn:
+    - name: mariadb
   interval: 5m
   chart:
     spec:
       chart: uptime-kuma
-      sourceRef:
-        kind: HelmRepository
-        name: uptime-kuma
-        namespace: flux-system
+      sourceRef: { kind: HelmRepository, name: uptime-kuma, namespace: flux-system }
       version: "2.24.0"
   values:
-    persistence:
-      enabled: false
     replicas: 1
-    mariadb:
-      enabled: false
-    database:
-      type: postgres
-      secretName: uptime-kuma-postgres-app
-      keys:
-        host: host
-        port: port
-        database: dbname
-        username: user
-        password: password
-
+    mariadb: { enabled: false }
+    extraEnv:
+      - name: UPTIME_KUMA_DB_TYPE
+        value: "mysql"
+      - name: UPTIME_KUMA_DB_CONNECTION
+        value: "mysql://kuma:$(MARIADB_PASSWORD)@mariadb:3306/uptimekuma"
+      - name: MARIADB_PASSWORD
+        valueFrom: { secretKeyRef: { name: mariadb-secret, key: mariadb-password } }
     ingress:
       enabled: true
       className: traefik
       hosts:
         - host: kuma.staging.local
-          paths:
-            - path: /
-              pathType: Prefix
+          paths: [{ path: /, pathType: Prefix }]

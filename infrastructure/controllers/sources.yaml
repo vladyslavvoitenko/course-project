@@ -1,0 +1,19 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: bitnami
+  namespace: flux-system
+spec:
+  interval: 24h
+  url: https://charts.bitnami.com/bitnami
+---
+# Джерело для чарту Uptime Kuma
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: uptime-kuma
+  namespace: flux-system
+spec:
+  interval: 24h
+  url: https://dirsigler.github.io/uptime-kuma-helm
