@@ -22,26 +22,26 @@ spec:
       enabled: false
     database:
       type: postgres
-    extraEnv:
-      - name: UPTIME_KUMA_DB_TYPE
-        value: "postgres"
-      - name: UPTIME_KUMA_DB_CONN
-        value: "postgresql://$(DB_USER):$(DB_PASSWORD)@uptime-kuma-postgres-prod-rw.$(NAMESPACE).svc.cluster.local:5432/$(DB_NAME)"
-      - name: DB_USER
-        valueFrom: { secretKeyRef: { name: uptime-kuma-postgres-prod-app, key: user } }
-      - name: DB_PASSWORD
-        valueFrom: { secretKeyRef: { name: uptime-kuma-postgres-prod-app, key: password } }
-      - name: DB_NAME
-        valueFrom: { secretKeyRef: { name: uptime-kuma-postgres-prod-app, key: dbname } }
-      - name: NAMESPACE
-        value: "production"
-#      secretName: uptime-kuma-postgres-app
-#      keys:
-#        host: host
-#        port: port
-#        database: dbname
-#        username: user
-#        password: password
+#    extraEnv:
+#      - name: UPTIME_KUMA_DB_TYPE
+#        value: "postgres"
+#      - name: UPTIME_KUMA_DB_CONN
+#        value: "postgresql://$(DB_USER):$(DB_PASSWORD)@uptime-kuma-postgres-prod-rw.$(NAMESPACE).svc.cluster.local:5432/$(DB_NAME)"
+#      - name: DB_USER
+#        valueFrom: { secretKeyRef: { name: uptime-kuma-postgres-prod-app, key: user } }
+#      - name: DB_PASSWORD
+#        valueFrom: { secretKeyRef: { name: uptime-kuma-postgres-prod-app, key: password } }
+#      - name: DB_NAME
+#        valueFrom: { secretKeyRef: { name: uptime-kuma-postgres-prod-app, key: dbname } }
+#      - name: NAMESPACE
+#        value: "production"
+      secretName: uptime-kuma-postgres-app
+      keys:
+        host: host
+        port: port
+        database: dbname
+        username: user
+        password: password
     ingress:
       enabled: true
       className: traefik
