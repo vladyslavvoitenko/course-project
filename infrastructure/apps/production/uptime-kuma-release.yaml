@@ -29,7 +29,7 @@ spec:
       UPTIME_KUMA_DB_CONN:
         valueFrom:
           secretKeyRef:
-            name: uptime-kuma-postgres-prod-app
+            name: uptime-kuma-postgres-app
             key: conninfo
 #        - name: UPTIME_KUMA_DB_TYPE
 #          value: "postgres"
