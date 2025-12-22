@@ -9,8 +9,10 @@ spec:
     spec:
       chart: mariadb
       sourceRef: { kind: HelmRepository, name: bitnami, namespace: flux-system }
-      version: "11.4.7"
+      version: "24.0.2"
   values:
+    image:
+      tag: "11.8.5"
     architecture: standalone
     auth:
       database: "uptimekuma"
