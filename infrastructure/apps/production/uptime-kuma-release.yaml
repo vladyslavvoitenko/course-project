@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: k8s-at-home
         namespace: flux-system
-      version: "2.20.x"
+      version: "1.4.2"
   values:
     resources:
       requests:
