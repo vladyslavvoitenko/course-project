@@ -24,17 +24,19 @@ spec:
     persistence:
       data:
         enabled: false
-    env:
-      - name: UPTIME_KUMA_DB_TYPE
-        value: "postgres"
-      - name: UPTIME_KUMA_DB_CONN
-        valueFrom:
-          secretKeyRef:
-            name: uptime-kuma-postgres-staging-app
-            key: conninfo
+    deployment:
+      extraEnv:
+        - name: UPTIME_KUMA_DB_TYPE
+          value: "postgres"
+        - name: UPTIME_KUMA_DB_CONN
+          valueFrom:
+            secretKeyRef:
+              name: uptime-kuma-postgres-staging-app
+              key: conninfo
     ingress:
       main:
         enabled: true
         ingressClassName: traefik
         hosts:
           - host: kuma.staging.local
+            paths: [{ path: /, pathType: Prefix }]
