@@ -11,7 +11,7 @@ spec:
   path: ./infrastructure/apps/staging
   prune: true
   dependsOn:
-    - name: infra-controllers
+    - name: infra-namespaces
   postBuild:
     substitute:
       namespace: staging

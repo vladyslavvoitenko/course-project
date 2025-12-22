@@ -1,18 +1,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps-production
+  name: infra-namespaces
   namespace: flux-system
 spec:
-  interval: 1m
+  interval: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/apps/production
+  path: ./infrastructure/namespaces
   prune: true
   dependsOn:
-    - name: infra-namespaces
-  postBuild:
-    substitute:
-      namespace: production
-  wait: true
+    - name: flux-system
