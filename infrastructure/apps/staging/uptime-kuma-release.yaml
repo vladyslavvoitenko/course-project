@@ -10,33 +10,28 @@ spec:
       chart: uptime-kuma
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: uptime-kuma
         namespace: flux-system
-      version: "1.4.2"
+      version: "2.24.0"
   values:
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
-        cpu: 500m
-        memory: 512Mi
-    persistence:
-      data:
-        enabled: false
-    deployment:
-      extraEnv:
-        - name: UPTIME_KUMA_DB_TYPE
-          value: "postgres"
-        - name: UPTIME_KUMA_DB_CONN
-          valueFrom:
-            secretKeyRef:
-              name: uptime-kuma-postgres-staging-app
-              key: conninfo
+    replicas: 1
+    mariadb:
+      enabled: false
+    database:
+      type: postgres
+      secretName: uptime-kuma-postgres-app
+      keys:
+        host: host
+        port: port
+        database: dbname
+        username: user
+        password: password
+
     ingress:
-      main:
-        enabled: true
-        ingressClassName: traefik
-        hosts:
-          - host: kuma.staging.local
-            paths: [{ path: /, pathType: Prefix }]
+      enabled: true
+      className: traefik
+      hosts:
+        - host: kuma.staging.local
+          paths:
+            - path: /
+              pathType: Prefix

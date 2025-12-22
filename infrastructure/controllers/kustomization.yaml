@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - cnpg-source.yaml
   - cnpg-release.yaml
-  - k8s-at-home-source.yaml
+  - uptime-kuma-source.yaml

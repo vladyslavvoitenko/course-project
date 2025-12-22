@@ -10,73 +10,31 @@ spec:
       chart: uptime-kuma
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: uptime-kuma
         namespace: flux-system
-      version: "1.4.2"
+      version: "2.24.0"
   values:
+    replicas: 3
     resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
-        cpu: 500m
-        memory: 512Mi
-    persistence:
-      data:
-        enabled: false
-    env:
-      UPTIME_KUMA_DB_TYPE: "postgres"
-      UPTIME_KUMA_DB_CONN: "postgresql://app:fL1yUml0ozByAIFnrq2cnamqTSksbA6114R4IhXvrmhTvVqz6y6YyAVPtVHztzaO%@uptime-kuma-postgres-rw.production.svc.cluster.local:5432/app"
-#        valueFrom:
-#          secretKeyRef:
-#            name: uptime-kuma-postgres-app
-#            key: uri
-#    env:
-#      UPTIME_KUMA_DB_TYPE: "postgres"
-#      UPTIME_KUMA_DB_CONN:
-#        value: "postgresql://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)"
-#      - name: DB_USER
-#        valueFrom:
-#          secretKeyRef:
-#            name: uptime-kuma-postgres-app
-#            key: user
-#      - name: DB_PASSWORD
-#        valueFrom:
-#          secretKeyRef:
-#            name: uptime-kuma-postgres-app
-#            key: password
-#      - name: DB_HOST
-#        valueFrom:
-#          secretKeyRef:
-#            name: uptime-kuma-postgres-app
-#            key: host
-#      - name: DB_PORT
-#        valueFrom:
-#          secretKeyRef:
-#            name: uptime-kuma-postgres-app
-#            key: port
-#      - name: DB_NAME
-#        valueFrom:
-#          secretKeyRef:
-#            name: uptime-kuma-postgres-app
-#            key: dbname
-#      UPTIME_KUMA_DB_TYPE: "postgres"
-#      UPTIME_KUMA_DB_CONN:
-#        valueFrom:
-#          secretKeyRef:
-#            name: uptime-kuma-postgres-app
-#            key: conninfo
-#        - name: UPTIME_KUMA_DB_TYPE
-#          value: "postgres"
-#        - name: UPTIME_KUMA_DB_CONN
-#          valueFrom:
-#            secretKeyRef:
-#              name: uptime-kuma-postgres-prod-app
-#              key: conninfo
+      requests: { cpu: "100m", memory: "256Mi" }
+      limits: { cpu: "500m", memory: "512Mi" }
+    mariadb:
+      enabled: false
+    database:
+      type: postgres
+      secretName: uptime-kuma-postgres-app
+      keys:
+        host: host
+        port: port
+        database: dbname
+        username: user
+        password: password
     ingress:
-      main:
-        enabled: true
-        ingressClassName: traefik
-        hosts:
-          - host: kuma.prod.local
-            paths: [{ path: /, pathType: Prefix }]
+      enabled: true
+      className: traefik
+      hosts:
+        - host: kuma.prod.local
+          paths:
+            - path: /
+              pathType: Prefix
+
