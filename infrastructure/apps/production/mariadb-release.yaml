@@ -9,7 +9,7 @@ spec:
     spec:
       chart: mariadb
       sourceRef: { kind: HelmRepository, name: bitnami, namespace: flux-system }
-      version: "19.x.x"
+      version: "23.2.2"
   values:
     architecture: replication
     auth:
