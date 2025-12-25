@@ -20,13 +20,13 @@ production: Для "бойового" використання (автомати
 2.1. Статус Helm-релізів (flux get helmreleases -A)
 
 Ця команда показує, що Flux успішно розгорнув та керує чартами MariaDB та Uptime Kuma в обох середовищах.
-
+```bash
 NAMESPACE   NAME            REVISION    SUSPENDED   READY   MESSAGE
 production  mariadb-prod    19.0.2      False       True    Helm upgrade succeeded
 production  uptime-kuma     2.24.0      False       True    Helm upgrade succeeded
 staging     mariadb         19.0.2      False       True    Helm upgrade succeeded
 staging     uptime-kuma     2.24.0      False       True    Helm upgrade succeeded
-
+```
 2.2. Статус Подів в обох неймспейсах (kubectl get pods -A)
 
 Вивід демонструє різну конфігурацію реплік для staging та production, як і було заплановано.
