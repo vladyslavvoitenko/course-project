@@ -32,7 +32,7 @@ staging     uptime-kuma     2.24.0      False       True    Helm upgrade succeed
 Вивід демонструє різну конфігурацію реплік для staging та production, як і було заплановано.
 Staging: 1 под Uptime Kuma, 1 под MariaDB.
 Production: 2 поди Uptime Kuma (згідно з minReplicas в HPA), 2 поди MariaDB (1 primary, 1 secondary).
-
+```bash
 NAMESPACE    NAME                                      READY   STATUS    RESTARTS   AGE
 production   mariadb-prod-primary-0                    1/1     Running   0          45m
 production   mariadb-prod-secondary-0                  1/1     Running   0          44m
@@ -40,14 +40,15 @@ production   uptime-kuma-57b6f6465d-rwdjc              1/1     Running   0      
 production   uptime-kuma-57b6f6465d-rwdjc              1/1     Running   0          42m
 staging      mariadb-0                                 1/1     Running   0          55m
 staging      uptime-kuma-57b6f6465d-xgvxr              1/1     Running   0          53m
-
+```
 2.3. Статус Ingress'ів (kubectl get ingress -A)
 
 Команда підтверджує, що для кожного середовища створено унікальну точку входу (Ingress) з відповідним хостом.
+```bash
 NAMESPACE    NAME          CLASS     HOSTS                ADDRESS     PORTS   AGE
 production   uptime-kuma   traefik   kuma.prod.local      localhost   80      42m
 staging      uptime-kuma   traefik   kuma.staging.local   localhost   80      53m
-
+```
 2.4. Демонстрація роботи (скріншоти)
 
 Інтерфейс Uptime Kuma у production середовищі:
